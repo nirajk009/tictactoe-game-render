@@ -17,7 +17,7 @@ const io = socketIO(httpServer, {
   }
 });
 
-// DEFINE PORT - THIS WAS MISSING!
+// DEFINE PORT - Railway will inject this
 const port = process.env.PORT || 3000;
 
 // LISTEN ON PORT
