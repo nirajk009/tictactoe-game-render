@@ -390,10 +390,11 @@ font-size: 1.4em;
           <p>Hi there 👋<br>How can I help you today?</p> -->
         </li>
       </ul>
-      <div class="chat-input">
-        <textarea placeholder="Enter a message..." spellcheck="false" required></textarea>
-        <span id="send-btn" class="material-symbols-rounded">send</span>
-      </div>
+   <div class="chat-input">
+  <textarea id="chat-textarea" placeholder="Enter a message..." spellcheck="false" required></textarea>
+  <span id="send-btn" class="material-symbols-rounded" onclick="sendChatMessage()">send</span>
+</div>
+
     </div>
 <!-- chat -->
 <div class="modal" id="modal">
@@ -1393,12 +1394,43 @@ stat.innerText='(online)';
 
 
 
+function sendChatMessage() {
+  const textarea = document.getElementById('chat-textarea');
+  const message = textarea.value.trim();
+  
+  if (message === "") return; // Don't send empty messages
+  
+  // Add message to chatbox
+  const chatbox = document.querySelector('.chatbox');
+  const newMessage = document.createElement('li');
+  newMessage.className = 'chat outgoing';
+  newMessage.innerHTML = `<p>${message}</p>`;
+  chatbox.appendChild(newMessage);
+  
+  // Send via Socket.IO
+  const roomName = document.getElementById('room_name_hei').innerText;
+  socket.emit('msg_gaya', { roomx: roomName, msg: message });
+  
+  // Clear textarea
+  textarea.value = '';
+  
+  // Scroll to bottom
+  chatbox.scrollTop = chatbox.scrollHeight;
+}
 
+// Also trigger on Enter key
+document.getElementById('chat-textarea').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendChatMessage();
+  }
+});
  
 
 </script>
 
 </html>
+
 
 
 
