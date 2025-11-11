@@ -12,7 +12,10 @@ const io = socketIO(httpServer, {
 });
 
 
-httpServer.listen(80);
+
+httpServer.listen(port, '0.0.0.0', () => {
+  console.log(`Server running on port ${port}`);
+});
 console.log("app is working fine");
 
 // const app = express();
@@ -229,3 +232,4 @@ socket.broadcast.to(roomx).emit('typeing_gayi');
 
 
 });
+
