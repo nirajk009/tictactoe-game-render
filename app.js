@@ -12,7 +12,7 @@ const io = socketIO(httpServer, {
 });
 
 
-httpServer.listen(3000);
+httpServer.listen(80);
 console.log("app is working fine");
 
 // const app = express();
@@ -225,6 +225,7 @@ socket.broadcast.to(roomx).emit('typeing_gayi');
   socket.on('disconnect', () => {
     console.log('A user disconnected');
   });
+
 
 
 });
