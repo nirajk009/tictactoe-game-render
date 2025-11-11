@@ -1,28 +1,12 @@
 const express = require('express');
-// const morgan = require('morgan');
 const socketIO = require('socket.io');
+const http = require('http');
 
-const httpServer = require("http").createServer(express);
+// CREATE THE EXPRESS APP FIRST
+const app = express();
 
-const io = socketIO(httpServer, {
-  cors: {
-    origin: [
-      "https://nirajk009.github.io",
-      "http://localhost:5173",
-      "http://127.0.0.1:5173"
-    ],
-    methods: ["GET", "POST"],
-    credentials: true
-  }
-});
-
-
-
-
-httpServer.listen(port, '0.0.0.0', () => {
-  console.log(`Server running on port ${port}`);
-});
-console.log("app is working fine");
+// THEN create HTTP server with the app
+const httpServer = http.createServer(app);
 
 // const app = express();
 // const port = 3000;
@@ -31,9 +15,9 @@ console.log("app is working fine");
 
 const connectedSockets = {};
 
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 io.on('connection', (socket) => {
   console.log('A user connected');
@@ -238,5 +222,6 @@ socket.broadcast.to(roomx).emit('typeing_gayi');
 
 
 });
+
 
 
