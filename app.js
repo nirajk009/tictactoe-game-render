@@ -6,10 +6,16 @@ const httpServer = require("http").createServer(express);
 
 const io = socketIO(httpServer, {
   cors: {
-    origin: "*", // Replace with your client address
-    methods: ["GET", "POST"]
+    origin: [
+      "https://nirajk009.github.io",
+      "http://localhost:5173",
+      "http://127.0.0.1:5173"
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
+
 
 
 
@@ -232,4 +238,5 @@ socket.broadcast.to(roomx).emit('typeing_gayi');
 
 
 });
+
 
